@@ -20,11 +20,11 @@ public class ReservaVirtual {
     private int id_reserva;
 
     @Column(name = "FECHA_INICIO")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fecha_inicio;
 
     @Column(name = "FECHA_FINAL")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fecha_final;
 
     @Column(name = "ESTADO")

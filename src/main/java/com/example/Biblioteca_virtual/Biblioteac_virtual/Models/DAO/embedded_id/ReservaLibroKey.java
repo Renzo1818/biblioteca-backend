@@ -2,13 +2,14 @@ package com.example.Biblioteca_virtual.Biblioteac_virtual.Models.DAO.embedded_id
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Embeddable
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReservaLibroKey implements Serializable {
     @Column(name = "ID_RESERVA")
     private int id_reserva;

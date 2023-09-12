@@ -3,6 +3,7 @@ package com.example.Biblioteca_virtual.Biblioteac_virtual.Controllers;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Models.DAO.Distrito;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Services.Interfaces.IDistrito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class DistritoController {
     private IDistrito services;
 
     @GetMapping("/distritos")
-    public List<Distrito> getAll(){
-        return services.getAllDistritos();
+    public ResponseEntity<List<Distrito>> getAll(){
+        return ResponseEntity.ok(services.getAllDistritos());
     }
 }

@@ -3,6 +3,7 @@ package com.example.Biblioteca_virtual.Biblioteac_virtual.Controllers;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Models.DAO.Editorial;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Services.Interfaces.IEditorial;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,36 @@ public class EditorialController {
     private IEditorial services;
 
     @GetMapping("/editoriales")
-    public List<Editorial> getAll(){
-        return services.getAllEditoriales();
+    public ResponseEntity<List<Editorial>> getAll(){
+        return ResponseEntity.ok(services.getAllEditoriales());
     }
 
     @GetMapping("/editoriales/{id}")
-    public Editorial getEditorial(@PathVariable int id){
-        return services.getEditorial(id);
-    }
+    public ResponseEntity<Editorial> getEditorial(@PathVariable int id){
+        Editorial editorial = services.getEditorial(id);
+        if(editorial != null){
+            return ResponseEntity.ok(editorial);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
 
+    }
     @PostMapping("/editoriales")
-    public void agregar(@RequestBody Editorial editorial){
+    public ResponseEntity<?> agregar(@RequestBody Editorial editorial){
         services.guardarEditorial(editorial);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/editoriales/{id}")
-    public void modificar(@RequestBody Editorial editorial, @PathVariable int id){
+    public ResponseEntity<Void> modificar(@RequestBody Editorial editorial, @PathVariable int id){
         services.modificarEditorial(editorial, id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/editoriales/{id}")
-    public void eliminar(@PathVariable int id){
+    public ResponseEntity<Void> eliminar(@PathVariable int id){
         services.eliminarEditorial(id);
+        return ResponseEntity.ok().build();
     }
 }

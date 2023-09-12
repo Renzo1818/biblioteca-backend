@@ -10,9 +10,9 @@ import java.util.Date;
 public class ReservaVirtualDTO {
     private int id_reserva;
     private int id_persona;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fecha_inicio;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date fecha_final;
     private boolean estado;
 

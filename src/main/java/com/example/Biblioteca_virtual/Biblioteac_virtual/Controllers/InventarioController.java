@@ -3,6 +3,7 @@ package com.example.Biblioteca_virtual.Biblioteac_virtual.Controllers;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Models.DTO.InventarioDTO;
 import com.example.Biblioteca_virtual.Biblioteac_virtual.Services.Interfaces.IInventario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,36 @@ public class InventarioController {
     private IInventario services;
 
     @GetMapping("/inventarios")
-    public List<InventarioDTO> getAll(){
-        return services.getAllInventarios();
+    public ResponseEntity<List<InventarioDTO>> getAll(){
+        return ResponseEntity.ok(services.getAllInventarios());
     }
 
     @GetMapping("/inventarios/{id}")
-    public InventarioDTO getInventario(@PathVariable int id){
-        return services.getInventario(id);
+    public ResponseEntity<InventarioDTO> getInventario(@PathVariable int id){
+        InventarioDTO inventarioDTO = services.getInventario(id);
+        if(inventarioDTO != null){
+            return ResponseEntity.ok(inventarioDTO);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/inventarios")
-    public void agregar(@RequestBody InventarioDTO inventarioDTO){
+    public ResponseEntity<?> agregar(@RequestBody InventarioDTO inventarioDTO){
         services.agregarInventario(inventarioDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/inventarios/{id}")
-    public void modificar(@RequestBody InventarioDTO inventarioDTO, @PathVariable int id){
+    public ResponseEntity<Void> modificar(@RequestBody InventarioDTO inventarioDTO, @PathVariable int id){
         services.modificarInventario(inventarioDTO, id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/inventarios/{id}")
-    public void eliminar(@PathVariable int id){
+    public ResponseEntity<Void> eliminar(@PathVariable int id){
         services.eliminarInventario(id);
+        return ResponseEntity.ok().build();
     }
 }
